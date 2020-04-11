@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/music-server/demo.iml" filepath="$PROJECT_DIR$/music-server/demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/music-client/music-client.iml" filepath="$PROJECT_DIR$/music-client/music-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/music-manage/music-manage.iml" filepath="$PROJECT_DIR$/music-manage/music-manage.iml" />
+    </modules>
+  </component>
+</project>
