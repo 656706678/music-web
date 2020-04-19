@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.domain.Song;
 import com.example.demo.domain.SongList;
 
 import java.util.List;
@@ -22,4 +23,5 @@ public interface SongListService {
 
     List<SongList> songAlbum(String title);
 
+    List<SongList>listSongRecommends(List<String>list);
 }

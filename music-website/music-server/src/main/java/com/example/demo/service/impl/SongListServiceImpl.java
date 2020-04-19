@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.dao.SongListMapper;
+import com.example.demo.domain.Song;
 import com.example.demo.domain.SongList;
 import com.example.demo.service.SongListService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,5 +59,9 @@ public class SongListServiceImpl implements SongListService {
     public boolean updateSongListImg(SongList songList) {
 
         return songListMapper.updateSongListImg(songList) >0 ?true:false;
+    }
+    @Override
+    public List<SongList> listSongRecommends(List<String> list) {
+        return songListMapper.listSongRecommends(list);
     }
 }

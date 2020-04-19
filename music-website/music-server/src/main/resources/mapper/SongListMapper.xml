@@ -48,6 +48,16 @@
     select *
     from song_list
   </select>
+
+  <select id="listSongRecommends" resultMap="BaseResultMap" parameterType="java.util.List">
+    select *
+    from song_list
+    where name in
+    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
+
   <select id="likeTitle" resultMap="ResultMapWithBLOBs">
     select *
     from song_list

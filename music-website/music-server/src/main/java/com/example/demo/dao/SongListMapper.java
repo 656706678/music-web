@@ -1,5 +1,6 @@
 package com.example.demo.dao;
 
+import com.example.demo.domain.Song;
 import com.example.demo.domain.SongList;
 import org.springframework.stereotype.Repository;
 
@@ -35,4 +36,5 @@ public interface SongListMapper {
     List<SongList> likeStyle(String style);
 
     List<SongList> songAlbum(String title);
+    List<SongList> listSongRecommends(List<String>list);
 }

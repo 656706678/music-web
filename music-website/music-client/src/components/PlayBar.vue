@@ -149,6 +149,19 @@ export default {
       } else {
         this.$store.commit('setIsPlay', true)
         window.sessionStorage.setItem('isPlay', JSON.stringify(true))
+
+        //record user song
+
+        let _this = this
+        var params = new URLSearchParams()
+        params.append('userId', _this.userId)
+        params.append('songName', _this.title)
+        axios.post(`${_this.$store.state.HOST}/api/addUserSong`, params)
+          .then(res => {
+            if (res.data.code === 1) {
+            }
+          })
+          .catch(failResponse => {})
       }
     },
     //  解析播放时间

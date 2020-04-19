@@ -182,7 +182,7 @@ const store = new Vuex.Store({
     song
   },
   state: {
-    HOST: 'http://localhost:8888',  //后端服务器=D:/music_project/music-website/music-server/
+    HOST: 'http://localhost:9999',  //后端服务器=D:/music_project/music-website/music-server/
     loginIn: false, // 是否登录
     activeName: '', // 歌单类型名
     searchword: '', // 搜索关键词

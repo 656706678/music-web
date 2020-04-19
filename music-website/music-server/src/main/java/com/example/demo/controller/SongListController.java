@@ -1,8 +1,14 @@
 package com.example.demo.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.demo.config.HwProperties;
 import com.example.demo.domain.SongList;
 import com.example.demo.service.impl.SongListServiceImpl;
+import org.python.antlr.ast.Str;
+import org.python.core.Py;
+import org.python.core.PyFunction;
+import org.python.core.PyList;
+import org.python.util.PythonInterpreter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
@@ -14,11 +20,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @RestController
 @Controller
 public class SongListController {
+
+    @Autowired
+    private HwProperties hwProperties;
 
     @Autowired
     private SongListServiceImpl songListService;
@@ -165,9 +176,35 @@ public class SongListController {
     //    返回所有歌单
     @RequestMapping(value = "/listSongLists", method = RequestMethod.GET)
     public Object toSongList(){
+
+        String pathPython = hwProperties.getPythonPath();
+        String pathMethod=hwProperties.getPythonMethod();
+        System.out.println("pathPython======================="+pathPython);
+        System.out.println("pathMethod======================="+pathMethod);
         return songListService.listSongLists();
     }
 
+    //获取推荐歌曲
+    @RequestMapping(value = "/listRecommends", method = RequestMethod.GET)
+    public Object listRecommends(HttpServletRequest req){
+        String userId=req.getParameter("userId").trim();
+        String pathPython = hwProperties.getPythonPath();
+        String pathMethod=hwProperties.getPythonMethod();
+        System.out.println();
+        PythonInterpreter pil=new PythonInterpreter();
+        pil.execfile(pathPython);
+        //调用方法
+        PyFunction pyFunction=pil.get(pathMethod,PyFunction.class);
+        PyList pylist = (PyList) pyFunction.__call__(Py.newString(userId));
+        List<String> list = new ArrayList<>();
+        for (int i=0;i<pylist.size();i++){
+            String value = pylist.get(i).toString();
+            list.add(value);
+        }
+        pil.cleanup();
+        pil.close();
+        return songListService.listSongRecommends(list);
+    }
 }
 
 

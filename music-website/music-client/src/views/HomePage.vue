@@ -24,6 +24,7 @@ export default {
   data () {
     return {
       songsList: [
+        {name: '推荐', list: []},
         {name: '歌单', list: []},
         {name: '歌手', list: []}
       ]
@@ -32,23 +33,37 @@ export default {
   created () {
     this.getSongLists('listSongLists')
     this.getSongLists('listSingers')
+    this.getSongLists("listRecommends")
   },
   methods: {
     getSongLists (path) {
       let _this = this
-      axios.get(`${_this.$store.state.HOST}/${path}`)
-        .then(function (res) {
-          if (path === 'listSongLists') {
-            // 获取歌单列表
-            _this.songsList[0].list = res.data.slice(0, 10)
-          } else if (path === 'listSingers') {
-            // 获取歌手列表
-            _this.songsList[1].list = res.data.slice(0, 10)
-          }
-        })
-        .catch(function (error) {
-          console.log(error)
-        })
+      if (path=="listRecommends"){
+        var params = new URLSearchParams()
+        params.append('userId', _this.userId)
+        axios.get(`${_this.$store.state.HOST}/${path}`,params)
+          .then(function (res) {
+              // 获取推荐列表
+              _this.songsList[0].list = res.data.slice(0, 20)
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
+      }else{
+        axios.get(`${_this.$store.state.HOST}/${path}`)
+          .then(function (res) {
+            if (path === 'listSongLists') {
+              // 获取歌单列表
+              _this.songsList[1].list = res.data.slice(0, 10)
+            } else if (path === 'listSingers') {
+              // 获取歌手列表
+              _this.songsList[2].list = res.data.slice(0, 10)
+            }
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
+      }
     }
   }
 }
