@@ -5,7 +5,7 @@
 <generatorConfiguration>
 
   <!-- 本地数据库驱动程序jar包的全路径 -->
-  <classPathEntry location="D:/music_project/music-website/music-server/src/main/resources/mysql-connector-java-8.0.13.jar"/>
+  <classPathEntry location="D:/GithubProject/music-web/music-website/music-server/src/main/resources/mysql-connector-java-8.0.13.jar"/>
 
   <context id="context" targetRuntime="MyBatis3">
     <commentGenerator>

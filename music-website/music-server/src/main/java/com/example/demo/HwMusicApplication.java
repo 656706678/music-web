@@ -10,7 +10,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 @SpringBootApplication
-@ComponentScan("com.example.demo.*")
 @MapperScan("com.example.demo.dao")
 public class HwMusicApplication {
 

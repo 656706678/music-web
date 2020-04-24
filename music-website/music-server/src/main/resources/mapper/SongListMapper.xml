@@ -49,7 +49,7 @@
     from song_list
   </select>
 
-  <select id="listSongRecommends" resultMap="BaseResultMap" parameterType="java.util.List">
+  <select id="listSongRecommends" resultMap="ResultMapWithBLOBs" parameterType="java.util.List">
     select *
     from song_list
     where name in

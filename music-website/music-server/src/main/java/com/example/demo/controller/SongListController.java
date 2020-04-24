@@ -176,17 +176,12 @@ public class SongListController {
     //    返回所有歌单
     @RequestMapping(value = "/listSongLists", method = RequestMethod.GET)
     public Object toSongList(){
-
-        String pathPython = hwProperties.getPythonPath();
-        String pathMethod=hwProperties.getPythonMethod();
-        System.out.println("pathPython======================="+pathPython);
-        System.out.println("pathMethod======================="+pathMethod);
         return songListService.listSongLists();
     }
 
     //获取推荐歌曲
     @RequestMapping(value = "/listRecommends", method = RequestMethod.GET)
-    public Object listRecommends(HttpServletRequest req){
+    public Object toRecommendList(HttpServletRequest req){
         String userId=req.getParameter("userId").trim();
         String pathPython = hwProperties.getPythonPath();
         String pathMethod=hwProperties.getPythonMethod();

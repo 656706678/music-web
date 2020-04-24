@@ -41,7 +41,7 @@ export default {
       if (path=="listRecommends"){
         var params = new URLSearchParams()
         params.append('userId', _this.userId)
-        axios.get(`${_this.$store.state.HOST}/${path}`,params)
+        axios.get(`${_this.$store.state.HOST}/${path}`)
           .then(function (res) {
               // 获取推荐列表
               _this.songsList[0].list = res.data.slice(0, 20)
