@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.demo.component.ExecPython;
 import com.example.demo.config.HwProperties;
 import com.example.demo.domain.SongList;
 import com.example.demo.service.impl.SongListServiceImpl;
@@ -183,21 +184,8 @@ public class SongListController {
     @RequestMapping(value = "/listRecommends", method = RequestMethod.GET)
     public Object toRecommendList(HttpServletRequest req){
         String userId=req.getParameter("userId").trim();
-        String pathPython = hwProperties.getPythonPath();
-        String pathMethod=hwProperties.getPythonMethod();
-        System.out.println();
-        PythonInterpreter pil=new PythonInterpreter();
-        pil.execfile(pathPython);
-        //调用方法
-        PyFunction pyFunction=pil.get(pathMethod,PyFunction.class);
-        PyList pylist = (PyList) pyFunction.__call__(Py.newString(userId));
-        List<String> list = new ArrayList<>();
-        for (int i=0;i<pylist.size();i++){
-            String value = pylist.get(i).toString();
-            list.add(value);
-        }
-        pil.cleanup();
-        pil.close();
+        ExecPython execPython=new ExecPython();
+        List<String> list=execPython.getRecommandList(userId);
         return songListService.listSongRecommends(list);
     }
 }
