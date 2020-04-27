@@ -1,15 +1,10 @@
 package com.example.demo.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.demo.component.ExecPython;
+import com.example.demo.config.ExecPython;
 import com.example.demo.config.HwProperties;
 import com.example.demo.domain.SongList;
 import com.example.demo.service.impl.SongListServiceImpl;
-import org.python.antlr.ast.Str;
-import org.python.core.Py;
-import org.python.core.PyFunction;
-import org.python.core.PyList;
-import org.python.util.PythonInterpreter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
@@ -21,7 +16,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -184,8 +178,8 @@ public class SongListController {
     @RequestMapping(value = "/listRecommends", method = RequestMethod.GET)
     public Object toRecommendList(HttpServletRequest req){
         String userId=req.getParameter("userId").trim();
-        ExecPython execPython=new ExecPython();
-        List<String> list=execPython.getRecommandList(userId);
+        ExecPython execPython=new ExecPython(hwProperties.getPythonPath());
+        List<String> list=execPython.getRecommandList(hwProperties.getPythonMethod(),userId);
         return songListService.listSongRecommends(list);
     }
 }
