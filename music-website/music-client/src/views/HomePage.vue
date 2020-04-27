@@ -39,9 +39,7 @@ export default {
     getSongLists (path) {
       let _this = this
       if (path=="listRecommends"){
-        var params = new URLSearchParams()
-        params.append('userId', _this.userId)
-        axios.get(`${_this.$store.state.HOST}/${path}`,params)
+        axios.get(`${_this.$store.state.HOST}/${path}?userId=${_this.userId}`)
           .then(function (res) {
               // 获取推荐列表
               _this.songsList[0].list = res.data.slice(0, 20)

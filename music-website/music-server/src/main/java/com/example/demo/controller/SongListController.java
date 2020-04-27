@@ -177,7 +177,8 @@ public class SongListController {
     //获取推荐歌曲
     @RequestMapping(value = "/listRecommends", method = RequestMethod.GET)
     public Object toRecommendList(HttpServletRequest req){
-        String userId=req.getParameter("userId").trim();
+        String userId=req.getParameter("userId");
+        System.out.println("userId="+userId);
         ExecPython execPython=new ExecPython(hwProperties.getPythonPath());
         List<String> list=execPython.getRecommandList(hwProperties.getPythonMethod(),userId);
         return songListService.listSongRecommends(list);
